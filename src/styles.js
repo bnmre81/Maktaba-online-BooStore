@@ -6,12 +6,12 @@ const BookWrapper = styled.div`
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    width: 20%;
   }
   p {
     text-align: center;
     &.book-price {
-      color: ${(props) => props.theme.mainColor};
+      color: ${(props) => props.theme.dark};
     }
   }
   h1 {
@@ -21,14 +21,14 @@ const BookWrapper = styled.div`
 
 const GlobalStyle = createGlobalStyle`
     body {
-        color: ${(props) => props.theme.pink};
-        background-color: green; 
+        color: ${(props) => props.theme.mid};
+        background-color: ${(props) => props.theme.light}; 
     }
 `;
 
 const Description = styled.h3`
   text-align: center;
-  color: blue;
+  color: ${(props) => props.theme.dark};
 `;
 const ListWrapper = styled.div`
     align-items: center;

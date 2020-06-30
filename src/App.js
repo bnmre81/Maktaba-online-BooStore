@@ -8,9 +8,11 @@ import BookList from "./components/BookList";
 import books from "./items";
 
 const theme = {
-  mainColor: "#242424",
-  backgroundColor: "#fefafb",
-  pink: "#ff85a2",
+  lightest: "#70c1b3",
+  lighter: "#247ba0",
+  light: "#ffe066",
+  mid: "#f25f5c",
+  dark: "#50514f",
 };
 
 function App() {
