@@ -19,10 +19,14 @@ const BookWrapper = styled.div`
   }
 `;
 
+const DeleteButtonStyled = styled.p`
+  color: ${(props) => props.theme.red};
+`;
+
 const GlobalStyle = createGlobalStyle`
     body {
-        color: ${(props) => props.theme.mid};
-        background-color: ${(props) => props.theme.light}; 
+        color: ${(props) => props.theme.mainColor};
+        background-color: ${(props) => props.theme.backgroundColor}; 
     }
 `;
 
@@ -46,11 +50,22 @@ const Title = styled.h1`
   text-align: center;
 `;
 
+const ThemeButton = styled.button`
+  font-size: 1em;
+  margin: 1.25em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+  background-color: ${(props) => props.theme.mainColor};
+  color: ${(props) => props.theme.backgroundColor};
+`;
+
 export {
   BookWrapper,
+  DeleteButtonStyled,
   Description,
   GlobalStyle,
   ListWrapper,
   StoreImage,
+  ThemeButton,
   Title,
 };
