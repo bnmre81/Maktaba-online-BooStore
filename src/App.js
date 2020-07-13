@@ -1,16 +1,21 @@
 import React, { useState } from "react";
+import { Route, Switch } from "react-router";
+
 // Styles
 import { ThemeProvider } from "styled-components";
 import {
+  Logo,
   DeleteButtonStyled,
   Description,
   GlobalStyle,
   StoreImage,
-  ThemeButton,
   Title,
 } from "./styles";
 // components
+import BookDetail from "./components/BookDetail";
 import BookList from "./components/BookList";
+import Home from "./components/Home";
+import NavBar from "./components/NavBar";
 //data
 import books from "./items";
 
@@ -36,25 +41,55 @@ const theme = {
 
 function App() {
   let [currentTheme, setCurrentTheme] = useState("light");
+  const [book, setBook] = useState(null);
+  const [_books, setBooks] = useState(books);
+
   const toggleTheme = () => {
     setCurrentTheme(currentTheme === "light" ? "dark" : "light");
   };
+  const selectBook = (bookId) => {
+    const selectedBook = books.find((book) => book.id === bookId);
+    setBook(selectedBook);
+  };
+
+  const deleteBook = (bookId) => {
+    const updatedBooks = _books.filter((book) => book.id !== +bookId);
+    setBooks(updatedBooks);
+    setBook(null);
+  };
+
+  const createBook = (newBook) => {
+    const updatedBooks = [...books, newBook];
+    setBook(updatedBooks);
+  };
+
   return (
-    <ThemeProvider theme={theme[currentTheme]}>
-      <GlobalStyle />
-      <ThemeButton onClick={toggleTheme}>
-        {currentTheme === "light" ? "Dark" : "Light"} Mode
-      </ThemeButton>
-      <div>
-        <StoreImage
-          src="https://media.wired.com/photos/5be4cd03db23f3775e466767/master/w_2560%2Cc_limit/books-521812297.jpg"
-          alt="storeimage"
-        />
-        <Title>My Personal BookStore</Title>
-        <Description>Freed from Publishers</Description>
-      </div>
-      <BookList />
-    </ThemeProvider>
+    <>
+      <ThemeProvider theme={theme[currentTheme]} currentTheme={currentTheme}>
+        <GlobalStyle />
+        <NavBar toggleTheme={toggleTheme} />
+      </ThemeProvider>
+      <Switch>
+        <Route exact path="/books/:bookSlug">
+          <BookDetail
+            books={_books}
+            deleteBook={deleteBook}
+            setBook={setBook}
+          />
+        </Route>
+        <Route exact path="/books">
+          <BookList
+            createBook={createBook}
+            books={_books}
+            selectBook={selectBook}
+            deleteBook={deleteBook}
+          />
+        </Route>
+        <Route exact path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </>
   );
 }
 
