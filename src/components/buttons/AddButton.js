@@ -4,7 +4,7 @@ import BookModal from "../modals/BookModal";
 // Styles
 import { BsPlusCircle } from "react-icons/bs";
 
-const AddButton = (createBook) => {
+const AddButton = ({ createBook }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => setIsOpen(false);
