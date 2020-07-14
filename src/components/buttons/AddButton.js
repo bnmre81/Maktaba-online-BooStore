@@ -13,11 +13,7 @@ const AddButton = ({ createBook }) => {
 
   return (
     <div>
-      <BsPlusCircle
-        className="float-right"
-        size="10em"
-        onClick={() => setIsOpen(true)}
-      />
+      <BsPlusCircle className="float-right" size="10em" onClick={openModal} />
       <BookModal
         createBook={createBook}
         isOpen={isOpen}

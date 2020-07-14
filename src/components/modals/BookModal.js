@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 // styles
 import { CreateButtonStyled } from "../../styles";
-
+// Stores
+import bookStore from "../../stores/bookStore";
 const customStyles = {
   content: {
     top: "50%",
@@ -13,13 +14,15 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
   },
 };
-const BookModal = ({ isOpen, closeModal, createBook }) => {
-  const [book, setBook] = useState({
-    name: "",
-    price: 0,
-    description: "",
-    image: "",
-  });
+const BookModal = ({ isOpen, closeModal, oldBook }) => {
+  const [book, setBook] = useState(
+    oldBook || {
+      name: "",
+      price: 0,
+      description: "",
+      image: "",
+    }
+  );
 
   const handleChange = (event) => {
     const newBook = { ...book, [event.target.name]: event.target.value };
@@ -28,8 +31,9 @@ const BookModal = ({ isOpen, closeModal, createBook }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event);
-    createBook(book);
+    // oldBook ? bookStore.updateBook(book) : bookStore.createBook(book);
+    // Above explains the line below
+    bookStore[oldBook ? "updateBook" : "createBook"](book);
     closeModal();
   };
 
@@ -51,6 +55,7 @@ const BookModal = ({ isOpen, closeModal, createBook }) => {
                 type="text"
                 onChange={handleChange}
                 className="form-control"
+                value={book.name}
               />
             </div>
             <div className="col-6">
@@ -61,6 +66,7 @@ const BookModal = ({ isOpen, closeModal, createBook }) => {
                 onChange={handleChange}
                 min="1"
                 className="form-control"
+                value={book.price}
               />
             </div>
           </div>
@@ -71,6 +77,7 @@ const BookModal = ({ isOpen, closeModal, createBook }) => {
               type="text"
               onChange={handleChange}
               className="form-control"
+              value={book.description}
             />
           </div>
           <div className="form-group">
@@ -80,10 +87,11 @@ const BookModal = ({ isOpen, closeModal, createBook }) => {
               type="text"
               onChange={handleChange}
               className="form-control"
+              value={book.image}
             />
           </div>
           <CreateButtonStyled className="btn float-right">
-            Create
+            {oldBook ? "Update" : "Create"}
           </CreateButtonStyled>
         </form>
       </Modal>

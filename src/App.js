@@ -42,7 +42,6 @@ const theme = {
 function App() {
   let [currentTheme, setCurrentTheme] = useState("light");
   const [book, setBook] = useState(null);
-  const [_books, setBooks] = useState(books);
 
   const toggleTheme = () => {
     setCurrentTheme(currentTheme === "light" ? "dark" : "light");
@@ -50,17 +49,6 @@ function App() {
   const selectBook = (bookId) => {
     const selectedBook = books.find((book) => book.id === bookId);
     setBook(selectedBook);
-  };
-
-  const deleteBook = (bookId) => {
-    const updatedBooks = _books.filter((book) => book.id !== +bookId);
-    setBooks(updatedBooks);
-    setBook(null);
-  };
-
-  const createBook = (newBook) => {
-    const updatedBooks = [...books, newBook];
-    setBook(updatedBooks);
   };
 
   return (
@@ -71,19 +59,10 @@ function App() {
       </ThemeProvider>
       <Switch>
         <Route exact path="/books/:bookSlug">
-          <BookDetail
-            books={_books}
-            deleteBook={deleteBook}
-            setBook={setBook}
-          />
+          <BookDetail setBook={setBook} />
         </Route>
         <Route exact path="/books">
-          <BookList
-            createBook={createBook}
-            books={_books}
-            selectBook={selectBook}
-            deleteBook={deleteBook}
-          />
+          <BookList selectBook={selectBook} />
         </Route>
         <Route exact path="/">
           <Home />

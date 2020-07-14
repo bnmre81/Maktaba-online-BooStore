@@ -1,14 +1,18 @@
 import React from "react";
+import { observer } from "mobx-react";
 import { Link } from "react-router-dom";
 // styles
 import { BookWrapper, DeleteButtonStyled } from "../styles";
 import App from "../App";
+// Components
 import DeleteButton from "./buttons/DeleteButton";
+import UpdateButton from "./buttons/UpdateButton";
+// stores
+import bookStore from "../stores/bookStore";
 
-const BookItem = (props) => {
-  const book = props.book;
+const BookItem = ({ book }) => {
   const handleDelete = () => {
-    props.deleteBook(book.id);
+    bookStore.deleteBook(book.id);
   };
 
   return (
@@ -18,8 +22,9 @@ const BookItem = (props) => {
         <img src={book.image} alt={book.name} />
       </Link>
       <p className="book-price">{book.price}</p>
-      <DeleteButton bookId={book.id} deleteBook={props.deleteBook} />
+      <UpdateButton book={book} />
+      <DeleteButton bookId={book.id} />
     </BookWrapper>
   );
 };
-export default BookItem;
+export default observer(BookItem);

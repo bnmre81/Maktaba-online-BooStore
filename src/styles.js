@@ -1,6 +1,10 @@
 import styled, { createGlobalStyle } from "styled-components";
 import { Link, NavLink } from "react-router-dom";
 
+export const updateButtonStyled = styled.p`
+  color: ${(props) => props.theme.red};
+`;
+
 export const NavStyled = styled.nav`
   background-color: ${(props) => props.theme.backgroundColor};
 `;

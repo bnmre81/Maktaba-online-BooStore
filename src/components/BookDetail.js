@@ -1,4 +1,5 @@
 import React from "react";
+import { observer } from "mobx-react";
 // Styles
 import { DetailWrapper, DeleteButtonStyled } from "../styles";
 import App from "../App";
@@ -6,10 +7,13 @@ import BookList from "./BookList";
 import { Link, Redirect, useParams } from "react-router-dom";
 // Components
 import DeleteButton from "./buttons/DeleteButton";
+// Stores
 
-const BookDetail = (props) => {
+import bookStore from "../stores/bookStore";
+
+const BookDetail = () => {
   const { bookSlug } = useParams();
-  const book = props.books.find((book) => book.slug === bookSlug);
+  const book = bookStore.books.find((book) => book.slug === bookSlug);
   if (!book) return <Redirect to="/books" />;
   return (
     <DetailWrapper>
@@ -17,10 +21,10 @@ const BookDetail = (props) => {
       <img src={book.image} alt={book.name} />
       <p>{book.description}</p>
       <p>{book.price}</p>
-      <DeleteButton bookId={book.id} deleteBook={props.deleteBook} />
+      <DeleteButton bookId={book.id} deleteBook={bookStore.deleteBook} />
 
       <Link to="/books">Back</Link>
     </DetailWrapper>
   );
 };
-export default BookDetail;
+export default observer(BookDetail);
