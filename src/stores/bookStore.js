@@ -6,11 +6,17 @@ import axios from "axios";
 class BookStore {
   books = [];
 
-  createBook = (newBook) => {
-    newBook.id = this.books[this.books.length - 1].id + 1;
-    newBook.slug = slugify(newBook.name);
-    // setBooks((oldBooks) => [...oldBooks, newBook]);
-    this.books.push(newBook);
+  createBook = async (newBook) => {
+    // newBook.id = this.books[this.books.length - 1].id + 1;
+    // newBook.slug = slugify(newBook.name);
+    // // setBooks((oldBooks) => [...oldBooks, newBook]);
+    // this.books.push(newBook);
+    try {
+      const res = await axios.post("http://localhost:8000/books", newBook);
+      this.books.push(res.data);
+    } catch (error) {
+      console.log("BookStore -> createBook -> error", error);
+    }
   };
 
   deleteBook = async (bookId) => {
