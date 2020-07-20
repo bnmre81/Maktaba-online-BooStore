@@ -1,10 +1,10 @@
 import { decorate, observable } from "mobx";
-// Data
-import books from "../items";
+
 import slugify from "react-slugify";
+import axios from "axios";
 
 class BookStore {
-  books = books;
+  books = [];
 
   createBook = (newBook) => {
     newBook.id = this.books[this.books.length - 1].id + 1;
@@ -13,8 +13,22 @@ class BookStore {
     this.books.push(newBook);
   };
 
-  deleteBook = (bookId) => {
-    this.books = this.books.filter((book) => book.id !== bookId);
+  deleteBook = async (bookId) => {
+    try {
+      await axios.delete(`http://localhost:8000/books/${bookId}`);
+      this.books = this.books.filter((book) => book.id !== +bookId);
+    } catch (error) {
+      console.log("BookStore -> deleteBook -> error", error);
+    }
+  };
+
+  fetchBooks = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/books");
+      this.books = res.data;
+    } catch (error) {
+      console.log("BookStore -> fetchBooks -> error", error);
+    }
   };
 
   updateBook = (updatedBook) => {
@@ -29,4 +43,5 @@ decorate(BookStore, {
 });
 
 const bookStore = new BookStore();
+bookStore.fetchBooks();
 export default bookStore;
