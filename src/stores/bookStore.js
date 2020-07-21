@@ -37,10 +37,17 @@ class BookStore {
     }
   };
 
-  updateBook = (updatedBook) => {
-    const book = this.books.find((book) => book.id === updatedBook.id);
-
-    for (const key in book) book[key] = updatedBook[key];
+  updateBook = async (updatedBook) => {
+    try {
+      await axios.put(
+        `http://localhost:8000/books/${updatedBook.id}`,
+        updatedBook
+      );
+      const book = this.books.find((book) => book.id === updatedBook.id);
+      for (const key in book) book[key] = updatedBook[key];
+    } catch (error) {
+      console.log("BookStore -> updateBooks -> error", error);
+    }
   };
 }
 
