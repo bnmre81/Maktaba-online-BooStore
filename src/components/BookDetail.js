@@ -10,6 +10,7 @@ import DeleteButton from "./buttons/DeleteButton";
 // Stores
 
 import bookStore from "../stores/bookStore";
+import UpdateButton from "./buttons/UpdateButton";
 
 const BookDetail = () => {
   const { bookSlug } = useParams();
@@ -21,6 +22,7 @@ const BookDetail = () => {
       <img src={book.image} alt={book.name} />
       <p>{book.description}</p>
       <p>{book.price}</p>
+      <UpdateButton book={book} />
       <DeleteButton bookId={book.id} deleteBook={bookStore.deleteBook} />
 
       <Link to="/books">Back</Link>

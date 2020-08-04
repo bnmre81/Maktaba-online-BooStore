@@ -2,8 +2,9 @@ import React, { useState } from "react";
 // styles
 import { updateButtonStyled } from "../../styles";
 import BookModal from "../modals/BookModal";
+import AuthorModal from "../modals/AuthorModal";
 
-const UpdateButton = ({ book }) => {
+const UpdateButton = ({ author, book }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => setIsOpen(false);
@@ -11,7 +12,15 @@ const UpdateButton = ({ book }) => {
   return (
     <>
       <updateButtonStyled onClick={openModal}>Update</updateButtonStyled>
-      <BookModal isOpen={isOpen} closeModal={closeModal} oldBook={book} />
+      {author ? (
+        <AuthorModal
+          isOpen={isOpen}
+          closeModal={closeModal}
+          oldAuthor={author}
+        />
+      ) : (
+        <BookModal isOpen={isOpen} closeModal={closeModal} oldBook={book} />
+      )}
     </>
   );
 };

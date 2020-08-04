@@ -5,14 +5,16 @@ import axios from "axios";
 
 class BookStore {
   books = [];
+  loading = true;
 
   createBook = async (newBook) => {
-    // newBook.id = this.books[this.books.length - 1].id + 1;
-    // newBook.slug = slugify(newBook.name);
-    // // setBooks((oldBooks) => [...oldBooks, newBook]);
-    // this.books.push(newBook);
     try {
-      const res = await axios.post("http://localhost:8000/books", newBook);
+      const formData = new FormData();
+      for (const key in newBook) formData.append(key, newBook[key]);
+      const res = await axios.post(
+        `http://localhost:8000/authors/${newBook.authorId}/books`,
+        formData
+      );
       this.books.push(res.data);
     } catch (error) {
       console.log("BookStore -> createBook -> error", error);
@@ -32,6 +34,7 @@ class BookStore {
     try {
       const res = await axios.get("http://localhost:8000/books");
       this.books = res.data;
+      this.loading = false;
     } catch (error) {
       console.log("BookStore -> fetchBooks -> error", error);
     }
@@ -39,9 +42,11 @@ class BookStore {
 
   updateBook = async (updatedBook) => {
     try {
+      const formData = new FormData();
+      for (const key in updatedBook) formData.append(key, updatedBook[key]);
       await axios.put(
         `http://localhost:8000/books/${updatedBook.id}`,
-        updatedBook
+        formData
       );
       const book = this.books.find((book) => book.id === updatedBook.id);
       for (const key in book) book[key] = updatedBook[key];
@@ -53,6 +58,7 @@ class BookStore {
 
 decorate(BookStore, {
   books: observable,
+  loading: observable,
 });
 
 const bookStore = new BookStore();

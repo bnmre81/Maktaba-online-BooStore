@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Route, Switch } from "react-router";
-
+import { observer } from "mobx-react";
 // Styles
 import { ThemeProvider } from "styled-components";
 import {
@@ -12,12 +11,11 @@ import {
   Title,
 } from "./styles";
 // components
-import BookDetail from "./components/BookDetail";
-import BookList from "./components/BookList";
-import Home from "./components/Home";
 import NavBar from "./components/NavBar";
-//data
-import books from "./items";
+import Routes from "./components/Routes";
+// Stores
+import authorStore from "./stores/authorStore";
+import bookStore from "./stores/bookStore";
 
 const theme = {
   lightest: "#70c1b3",
@@ -46,30 +44,21 @@ function App() {
   const toggleTheme = () => {
     setCurrentTheme(currentTheme === "light" ? "dark" : "light");
   };
-  const selectBook = (bookId) => {
-    const selectedBook = books.find((book) => book.id === bookId);
-    setBook(selectedBook);
-  };
 
   return (
     <>
       <ThemeProvider theme={theme[currentTheme]} currentTheme={currentTheme}>
         <GlobalStyle />
         <NavBar toggleTheme={toggleTheme} />
+        {authorStore.loading || bookStore.loading ? (
+          <h1>loading</h1>
+        ) : (
+          <Routes />
+        )}
       </ThemeProvider>
-      <Switch>
-        <Route exact path="/books/:bookSlug">
-          <BookDetail setBook={setBook} />
-        </Route>
-        <Route exact path="/books">
-          <BookList selectBook={selectBook} />
-        </Route>
-        <Route exact path="/">
-          <Home />
-        </Route>
-      </Switch>
+      <Routes />
     </>
   );
 }
 
-export default App;
+export default observer(App);

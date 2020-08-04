@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import BookModal from "../modals/BookModal";
 // Styles
 import { BsPlusCircle } from "react-icons/bs";
+import AuthorItem from "../AuthorList/AuthorItem";
+import AuthorModal from "../modals/AuthorModal";
 
-const AddButton = ({ createBook }) => {
+const AddButton = ({ authorId }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => setIsOpen(false);
@@ -14,11 +16,16 @@ const AddButton = ({ createBook }) => {
   return (
     <div>
       <BsPlusCircle className="float-right" size="10em" onClick={openModal} />
-      <BookModal
-        createBook={createBook}
-        isOpen={isOpen}
-        closeModal={closeModal}
-      />
+
+      {authorId ? (
+        <BookModal
+          isOpen={isOpen}
+          closeModal={closeModal}
+          authorId={authorId}
+        />
+      ) : (
+        <AuthorModal isOpen={isOpen} closeModal={closeModal} />
+      )}
     </div>
   );
 };

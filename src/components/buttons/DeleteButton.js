@@ -5,9 +5,10 @@ import { DeleteButtonStyled } from "../../styles";
 // stores
 import bookStore from "../../stores/bookStore";
 
-const DeleteButton = ({ bookId }) => {
+const DeleteButton = ({ authorId, bookId }) => {
   const handleDelete = () => {
-    bookStore.deleteBook(bookId);
+    if (bookId) bookStore.deleteBook(bookId);
+    else authorStore.deleteAuthor(authorId);
   };
 
   return <DeleteButtonStyled onClick={handleDelete}>Delete</DeleteButtonStyled>;

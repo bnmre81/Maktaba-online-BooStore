@@ -12,6 +12,9 @@ const NavBar = (props) => {
       <NavLink className="nav-item" to="/books">
         Books
       </NavLink>
+      <NavLink className="nav-item" to="/authors">
+        Authors
+      </NavLink>
       <ThemeButton className="nav-item" onClick={props.toggleTheme}>
         {props.currentTheme === "light" ? "Dark" : "Light"} Mode
       </ThemeButton>
