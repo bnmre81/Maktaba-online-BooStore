@@ -21,7 +21,7 @@ const Routes = () => {
         <AuthorList />
       </Route>
       <Route exact path="/books/:bookSlug">
-        <BookDetail />
+        <BookDetail books={books} />
         {/* setBook={setBook} was a prop above */}
       </Route>
       <Route exact path="/books">

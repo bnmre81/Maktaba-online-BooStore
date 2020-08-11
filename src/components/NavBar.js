@@ -2,6 +2,8 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../logo.png";
 import { ThemeButton, Logo, NavStyled } from "../styles";
+// Components
+import Signup from "./buttons/SignupButton";
 
 const NavBar = (props) => {
   return (
@@ -15,6 +17,7 @@ const NavBar = (props) => {
       <NavLink className="nav-item" to="/authors">
         Authors
       </NavLink>
+      <Signup />
       <ThemeButton className="nav-item" onClick={props.toggleTheme}>
         {props.currentTheme === "light" ? "Dark" : "Light"} Mode
       </ThemeButton>

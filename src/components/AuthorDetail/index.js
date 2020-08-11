@@ -17,6 +17,10 @@ const AuthorDetail = () => {
 
   if (!author) return <Redirect to="/authors" />;
 
+  const books = author.books
+    .map((book) => bookStore.getBookById(book.id))
+    .filter((book) => book);
+
   return (
     <>
       <div>
@@ -24,9 +28,9 @@ const AuthorDetail = () => {
         <img src={author.image} alt={author.name} />
         <UpdateButton author={author} />
       </div>
-      <BookList book={author.books} />
+      <BookList book={books} />
       <AddButton authorId={author.id} />
-      <DeleteButton authorId={author.id} />
+      <DeleteButton author={author} />
     </>
   );
 };

@@ -4,6 +4,7 @@ import { DeleteButtonStyled } from "../../styles";
 
 // stores
 import bookStore from "../../stores/bookStore";
+import authorStore from "../../stores/authorStore";
 
 const DeleteButton = ({ authorId, bookId }) => {
   const handleDelete = () => {

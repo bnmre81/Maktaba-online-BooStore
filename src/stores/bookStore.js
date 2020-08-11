@@ -7,15 +7,18 @@ class BookStore {
   books = [];
   loading = true;
 
-  createBook = async (newBook) => {
+  getBookById = (bookId) => this.books.find((book) => book.id === bookId);
+
+  createBook = async (newBook, author) => {
     try {
       const formData = new FormData();
       for (const key in newBook) formData.append(key, newBook[key]);
       const res = await axios.post(
-        `http://localhost:8000/authors/${newBook.authorId}/books`,
+        `http://localhost:8000/authors/${authorId}/books`,
         formData
       );
       this.books.push(res.data);
+      author.books.push({ id: res.data.id });
     } catch (error) {
       console.log("BookStore -> createBook -> error", error);
     }
