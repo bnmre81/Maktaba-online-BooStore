@@ -6,7 +6,7 @@ import { BsPlusCircle } from "react-icons/bs";
 import AuthorItem from "../AuthorList/AuthorItem";
 import AuthorModal from "../modals/AuthorModal";
 
-const AddButton = ({ authorId }) => {
+const AddButton = ({ author }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => setIsOpen(false);
@@ -18,11 +18,7 @@ const AddButton = ({ authorId }) => {
       <BsPlusCircle className="float-right" size="10em" onClick={openModal} />
 
       {authorId ? (
-        <BookModal
-          isOpen={isOpen}
-          closeModal={closeModal}
-          authorId={authorId}
-        />
+        <BookModal isOpen={isOpen} closeModal={closeModal} author={author} />
       ) : (
         <AuthorModal isOpen={isOpen} closeModal={closeModal} />
       )}

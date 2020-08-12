@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 // styles
 import { CreateButtonStyled } from "../../styles";
-// Stores
 import authorStore from "../../stores/authorStore";
+// Stores
+import authStore from "../../stores/authStore";
+
 const customStyles = {
   content: {
     top: "50%",
@@ -15,7 +17,7 @@ const customStyles = {
   },
 };
 const SignupModal = ({ isOpen, closeModal }) => {
-  const [author, setAuthor] = useState({
+  const [user, setUser] = useState({
     username: "",
     email: "",
     firstname: "",
@@ -24,12 +26,13 @@ const SignupModal = ({ isOpen, closeModal }) => {
   });
 
   const handleChange = (event) => {
-    const newUser = { ...author, [event.target.name]: event.target.value };
-    setAuthor(newUser);
+    const newUser = { ...user, [event.target.name]: event.target.value };
+    setUser(newUser);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    authStore.signup(user);
     closeModal();
   };
 
@@ -41,39 +44,61 @@ const SignupModal = ({ isOpen, closeModal }) => {
         style={customStyles}
         contentLabel="Signup Modal"
       >
-        <h3>New newUser</h3>
+        <h3>New User</h3>
         <form onSubmit={handleSubmit}>
           <div className="form-group row">
             <div className="col-6">
-              <label>Name</label>
+              <label>username</label>
               <input
-                name="name"
+                name="username"
                 type="text"
                 onChange={handleChange}
                 className="form-control"
-                value={author.name}
+                value={user.username}
               />
             </div>
           </div>
           <div className="form-group">
-            <label>Description</label>
+            <label>First name</label>
             <input
-              name="description"
+              name="firstName"
               type="text"
               onChange={handleChange}
               className="form-control"
-              value={book.description}
+              value={book.firstname}
             />
           </div>
           <div className="form-group">
-            <label>Image</label>
+            <label>Last name</label>
             <input
-              name="image"
-              type="file"
-              onChange={handleImage}
+              name="lastName"
+              type="text"
+              onChange={handleChange}
               className="form-control"
+              value={book.lastName}
             />
           </div>
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              name="email"
+              type="text"
+              onChange={handleChange}
+              className="form-control"
+              value={book.email}
+            />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input
+              name="password"
+              type="text"
+              onChange={handleChange}
+              className="form-control"
+              value={book.password}
+            />
+          </div>
+
           <CreateButtonStyled className="btn float-right">
             Sign Up
           </CreateButtonStyled>

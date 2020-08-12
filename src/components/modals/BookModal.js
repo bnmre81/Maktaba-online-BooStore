@@ -14,10 +14,9 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
   },
 };
-const BookModal = ({ authorId, isOpen, closeModal, oldBook }) => {
+const BookModal = ({ author, isOpen, closeModal, oldBook }) => {
   const [book, setBook] = useState(
     oldBook || {
-      authorId,
       name: "",
       price: 0,
       description: "",
@@ -37,7 +36,7 @@ const BookModal = ({ authorId, isOpen, closeModal, oldBook }) => {
     event.preventDefault();
     // oldBook ? bookStore.updateBook(book) : bookStore.createBook(book);
     // Above explains the line below
-    bookStore[oldBook ? "updateBook" : "createBook"](book);
+    bookStore[oldBook ? "updateBook" : "createBook"](book, author);
     closeModal();
   };
 

@@ -29,8 +29,8 @@ const AuthorDetail = () => {
         <UpdateButton author={author} />
       </div>
       <BookList book={books} />
-      <AddButton authorId={author.id} />
-      <DeleteButton author={author} />
+      <AddButton author={author} />
+      <DeleteButton authorId={author.id} />
     </>
   );
 };
