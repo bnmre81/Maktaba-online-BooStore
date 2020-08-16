@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SignupModal from "../modals/SignupModal";
 
-const Signup = () => {
+const SignupButton = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => setIsOpen(false);
@@ -15,4 +15,4 @@ const Signup = () => {
     </>
   );
 };
-export default Signup;
+export default SignupButton;

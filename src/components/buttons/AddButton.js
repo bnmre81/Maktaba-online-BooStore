@@ -17,7 +17,7 @@ const AddButton = ({ author }) => {
     <div>
       <BsPlusCircle className="float-right" size="10em" onClick={openModal} />
 
-      {authorId ? (
+      {author ? (
         <BookModal isOpen={isOpen} closeModal={closeModal} author={author} />
       ) : (
         <AuthorModal isOpen={isOpen} closeModal={closeModal} />

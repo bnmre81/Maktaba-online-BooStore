@@ -16,7 +16,7 @@ const customStyles = {
 };
 const AuthorModal = ({ authorId, isOpen, closeModal, oldAuthor }) => {
   const [author, setAuthor] = useState(
-    oldBook || {
+    oldAuthor || {
       name: "",
       description: "",
       image: "",

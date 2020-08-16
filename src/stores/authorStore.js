@@ -1,7 +1,7 @@
 import { decorate, observable } from "mobx";
 
 import slugify from "react-slugify";
-import axios from "axios";
+import instance from "./instance"
 
 class AuthorStore {
   authors = [];
@@ -13,7 +13,7 @@ class AuthorStore {
       try {
         const formData = new FormData();
         for (const key in newAuthor) formData.append(key, newAuthor[key]);
-        const res = await axios.post(`http://localhost:8000/authors`, formData);
+        const res = await instance.post("/authors", formData);
         this.authors.push(res.data);
       } catch (error) {
         console.log("AuthorStore -> createAuthor -> error", error);
@@ -25,8 +25,7 @@ class AuthorStore {
         const formData = new FormData();
         for (const key in updatedAuthor)
           formData.append(key, updatedAuthor[key]);
-        await axios.put(
-          `http://localhost:8000/authors/${updatedAuthor.id}`,
+        await instance.put(`/authors/${updatedAuthor.id}`,
           formData
         );
         const author = this.authors.find(

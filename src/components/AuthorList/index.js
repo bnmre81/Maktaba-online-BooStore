@@ -9,6 +9,8 @@ import authorStore from "../../stores/authorStore";
 
 const AuthorList = () => {
   const [query, setQuery] = useState("");
+
+  if (!authStore.user) return <Redirect to="/" />;
   const authorList = authorStore.authors
     .filter((author) => author.name.toLowerCase().includes(query.toLowerCase()))
     .map((author) => <AuthorItem author={author} key={author.id} />);

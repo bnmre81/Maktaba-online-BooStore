@@ -23,6 +23,7 @@ const SignupModal = ({ isOpen, closeModal }) => {
     firstname: "",
     lastname: "",
     password: "",
+    role: "vendor",
   });
 
   const handleChange = (event) => {
@@ -92,7 +93,7 @@ const SignupModal = ({ isOpen, closeModal }) => {
             <label>Password</label>
             <input
               name="password"
-              type="text"
+              type="password"
               onChange={handleChange}
               className="form-control"
               value={book.password}

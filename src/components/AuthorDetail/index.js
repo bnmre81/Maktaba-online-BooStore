@@ -8,6 +8,7 @@ import UpdateButton from "../buttons/UpdateButton";
 // Stores
 import authorStore from "../../stores/authorStore";
 import DeleteButton from "../buttons/DeleteButton";
+import bookStore from "../../stores/bookStore";
 
 const AuthorDetail = () => {
   const { authorSlug } = useParams();
